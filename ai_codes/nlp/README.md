@@ -7,21 +7,52 @@ A progressive learning journey through Natural Language Processing, tracing the 
 ## Learning Journey
 
 ```
-TF-IDF (Sparse Vectors)
-       ↓
-Word Vectors (Dense Representations)
-       ↓
-Word Embeddings (Learned Representations)
-       ↓
-Recurrent Neural Networks (Sequence Modeling)
-       ↓
-LSTM (Long-term Dependencies)
-       ↓
-Attention Mechanisms (Selective Focus)
-       ↓
-Self-Attention (Token Interactions)
-       ↓
-Transformers (Next Section)
+┌─────────────────────┐
+│   TF-IDF            │  Sparse Vectors
+│  (Baseline)         │
+└──────────┬──────────┘
+           │
+           ↓
+┌─────────────────────┐
+│  Word Vectors       │  Dense Representations
+│  (Semantic Space)   │
+└──────────┬──────────┘
+           │
+           ↓
+┌─────────────────────┐
+│ Word Embeddings     │  Learned Representations
+│ (Word2Vec, GloVe)   │
+└──────────┬──────────┘
+           │
+           ↓
+┌─────────────────────┐
+│      RNN            │  Sequence Modeling
+│  (Hidden States)    │
+└──────────┬──────────┘
+           │
+           ↓
+┌─────────────────────┐
+│      LSTM           │  Long-term Dependencies
+│  (Memory Cells)     │
+└──────────┬──────────┘
+           │
+           ↓
+┌─────────────────────┐
+│  Attention          │  Selective Focus
+│ (Query-Key-Value)   │
+└──────────┬──────────┘
+           │
+           ↓
+┌─────────────────────┐
+│ Self-Attention      │  Token Interactions
+│ (Scaled Dot-Prod)   │
+└──────────┬──────────┘
+           │
+           ↓
+┌─────────────────────┐
+│  Transformers       │  Parallel Processing
+│   (Next Section)    │
+└─────────────────────┘
 ```
 
 ---
@@ -41,7 +72,7 @@ nlp/
 │   └── notebook.ipynb
 ├── 04-rnn/
 │   ├── README.md
-│   └─��� notebook.ipynb
+│   └── notebook.ipynb
 ├── 05-lstm/
 │   ├── README.md
 │   └── notebook.ipynb
@@ -83,86 +114,190 @@ By working through these notebooks, you will understand:
 
 ---
 
+## Visual Architecture Diagrams
+
+### TF-IDF: Sparse Vector Representation
+
+```
+Document 1: "machine learning"  ──┐
+Document 2: "deep learning"     ──├──> TF-IDF Vectorizer ──> [0.5, 0.3, 0.0, ...]
+Document 3: "neural networks"   ──┘                            Sparse Vector
+                                                               (high-dim, sparse)
+```
+
+**Key Insight**: Each dimension represents a unique word; most values are zero.
+
+---
+
+### Word Embeddings: Dense Vector Space
+
+```
+Similarity Clustering in 2D Space:
+┌────────────────────────────────────────┐
+│                                        │
+│  good ●                                │
+│         ● excellent                    │
+│            ● great                     │
+│                                        │
+│                                        │
+│  bad ●                                 │
+│      ● poor                            │
+│         ● terrible                     │
+│                                        │
+└────────────────────────────────────────┘
+     Semantic Similarity ────>
+```
+
+**Key Insight**: Similar words cluster together; geometry encodes meaning.
+
+---
+
+### RNN: Sequence Processing with Hidden State
+
+```
+Input Sequence: "I love NLP"
+
+    x₁: "I"     x₂: "love"    x₃: "NLP"
+      ↓             ↓             ↓
+    [RNN] ──> h₁  [RNN] ──> h₂  [RNN] ──> h₃
+      ↑             ↑             ↑
+    h₀=0          h₁            h₂
+    
+Output: h₃ (final prediction)
+```
+
+**Key Insight**: Hidden state carries information from all previous steps.
+
+---
+
+### LSTM: Memory Cell with Gates
+
+```
+Input: xₜ
+Current Hidden State: hₜ₋₁
+Previous Cell State: Cₜ₋₁
+
+        ┌─────────────────────────────┐
+        │   LSTM Cell Architecture    │
+        │                             │
+xₜ ─────┤  ┌──────────┐              │
+        │  │ Forget   │ ─ remove old │
+hₜ₋₁ ───┤  │  Gate    │   info      │
+        │  └──────────┘              │
+Cₜ₋₁ ───┤                            │
+        │  ┌──────────┐              │
+        │  │  Input   │ ─ add new   │
+        │  │  Gate    │   info      │
+        │  └──────────┘              │
+        │                            │
+        │  ┌──────────┐              │
+        │  │ Output   │ ─ select    │
+        │  │  Gate    │   output    │
+        │  └──────────┘              │
+        │                             │
+        └────────┬────────────────────┘
+                 │
+            ┌────┴─────┐
+            ↓          ↓
+           Cₜ          hₜ
+        (Cell State) (Output)
+```
+
+**Key Insight**: Gates control what information flows through the cell.
+
+---
+
+### Attention Mechanism: Query-Key-Value
+
+```
+Input Sequence: [word₁, word₂, word₃, word₄]
+
+Step 1: Create Q, K, V matrices
+        ┌──────────┬──────────┬──────────┬──────────┐
+Q matrix│   q₁     │   q₂     │   q₃     │   q₄     │
+        └──────────┴──────────┴────────���─┴──────────┘
+        ┌──────────┬──────────┬──────────┬──────────┐
+K matrix│   k₁     │   k₂     │   k₃     │   k₄     │
+        └──────────┴──────────┴──────────┴──────────┘
+        ┌──────────┬──────────┬──────────┬──────────┐
+V matrix│   v₁     │   v₂     │   v₃     │   v₄     │
+        └──────────┴──────────┴──────────┴──────────┘
+
+Step 2: Compute Attention Scores (Q · K^T)
+        ┌─────┬─────┬─────┬─────┐
+Scores  │0.9  │0.1  │0.0  │0.0  │
+        ├─────┼─────┼─────┼─────┤
+        │0.2  │0.7  │0.1  │0.0  │
+        ├─────┼─────┼─────┼─────┤
+        │0.1  │0.2  │0.6  │0.1  │
+        ├─────┼─────┼─────┼─────┤
+        │0.0  │0.1  │0.2  │0.7  │
+        └─────┴─────┴─────┴─────┘
+   (What each word attends to)
+
+Step 3: Weighted Sum of Values
+Output = Attention(Q,K,V) = softmax(Scores) · V
+```
+
+**Key Insight**: Attention weights show which inputs are relevant to each output.
+
+---
+
+### Self-Attention: Token-to-Token Relationships
+
+```
+Sentence: "The cat sat on the mat"
+
+Self-Attention Matrix (showing which tokens interact):
+
+        The  cat  sat  on  the  mat
+    ┌────┬────┬────┬────┬────┬────┐
+The │0.9 │0.1 │0.0 │0.0 │0.8 │0.0 │
+    ├────┼────┼────┼────┼────┼────┤
+cat │0.1 │0.9 │0.7 │0.0 │0.1 │0.1 │
+    ├────┼────┼────┼────┼────┼────┤
+sat │0.0 │0.6 │0.8 │0.9 │0.0 │0.0 │
+    ├────┼────┼────┼────┼────┼────┤
+on  │0.0 │0.0 │0.7 │0.9 │0.0 │0.8 │
+    ├────┼────┼────┼────┼────┼────┤
+the │0.7 │0.1 │0.0 │0.0 │0.9 │0.9 │
+    ├────┼────┼────┼────┼────┼────┤
+mat │0.0 │0.2 │0.0 │0.8 │0.8 │0.9 │
+    └────┴────┴────┴────┴────┴────┘
+
+Darker values = stronger attention connections
+"sat" attends strongly to "cat" (subject)
+"on" attends to "sat" (verb) and "mat" (object)
+```
+
+**Key Insight**: Each token learns to attend to relevant context tokens.
+
+---
+
 ## Technologies Used
 
 - **Python** — Core language
-- **NumPy** — Numerical computation
-- **Pandas** — Data manipulation
-- **Matplotlib & Seaborn** — Visualization
-- **Scikit-learn** — Classical ML and utilities
+- **NumPy** — Numerical computation and linear algebra
+- **Pandas** — Data manipulation and analysis
+- **Matplotlib & Seaborn** — Visualization and plotting
+- **Scikit-learn** — Classical ML algorithms and utilities
 - **TensorFlow/Keras** — Deep learning framework
-- **Gensim** — Word embeddings (Word2Vec)
+- **Gensim** — Word embeddings (Word2Vec training)
 - **Jupyter Notebook** — Interactive environment
-
----
-
-## Visual Highlights
-
-### TF-IDF Heatmap
-Shows the importance of terms across documents, highlighting how different keywords distinguish document topics.
-
-![TF-IDF Heatmap Placeholder](https://via.placeholder.com/600x400?text=TF-IDF+Term+Importance+Heatmap)
-
-*Visualization from `01-tf-idf/notebook.ipynb` — displays term frequency across documents*
-
----
-
-### Word Embedding PCA Projection
-Demonstrates how learned embeddings cluster semantically similar words in 2D space, revealing semantic structure.
-
-![Word Embedding PCA Placeholder](https://via.placeholder.com/600x400?text=Word+Embeddings+PCA+Projection)
-
-*Visualization from `03-word-embeddings/notebook.ipynb` — semantic relationships in vector space*
-
----
-
-### RNN Training Curves
-Illustrates model convergence during training and validation on sentiment classification tasks.
-
-![RNN Training Curves Placeholder](https://via.placeholder.com/600x400?text=RNN+Training+Convergence+Curves)
-
-*Visualization from `04-rnn/notebook.ipynb` — loss and accuracy over epochs*
-
----
-
-### LSTM Cell Architecture
-Visualizes the flow of information through forget, input, and output gates, explaining memory dynamics.
-
-![LSTM Cell Architecture Placeholder](https://via.placeholder.com/600x400?text=LSTM+Cell+Gate+Architecture)
-
-*Diagram from `05-lstm/notebook.ipynb` — forget gate, input gate, output gate flow*
-
----
-
-### Attention Heatmap
-Displays how attention weights distribute across input tokens, revealing which words the model focuses on during prediction.
-
-![Attention Heatmap Placeholder](https://via.placeholder.com/600x400?text=Attention+Weight+Distribution+Heatmap)
-
-*Visualization from `06-attention-mechanisms/notebook.ipynb` — interpretability of attention focus*
-
----
-
-### Self-Attention Matrix
-Visualizes pairwise token interactions and learned relationships in the self-attention mechanism, showing token-to-token attention patterns.
-
-![Self-Attention Matrix Placeholder](https://via.placeholder.com/600x400?text=Self-Attention+Token+Interaction+Matrix)
-
-*Visualization from `07-self-attention/notebook.ipynb` — token relationships in sequence*
 
 ---
 
 ## Key Skills Acquired
 
 - [x] Sparse text representation (Bag of Words, TF-IDF)
-- [x] Feature engineering for NLP
-- [x] Semantic search and similarity
-- [x] Word embeddings and dense vectors
+- [x] Feature engineering for NLP tasks
+- [x] Semantic search and similarity computation
+- [x] Word embeddings and dense vector spaces
 - [x] Sequence modeling with RNNs
 - [x] Sentiment analysis and text classification
-- [x] Handling vanishing gradients (LSTM)
+- [x] Handling vanishing/exploding gradients (LSTM)
 - [x] Attention mechanisms and interpretability
-- [x] Self-attention and multi-head concepts
+- [x] Self-attention and scaled dot-product attention
 - [x] Foundation for Transformer architectures
 
 ---
@@ -176,7 +311,13 @@ This folder is intentionally structured as a **progressive learning path**, not 
 - **What are its limitations?**
 - **Why** did we need the next technique?
 
-For example, TF-IDF works well for exact keyword matching but lacks semantic understanding. Word embeddings capture meaning but don't capture context. RNNs model sequences but struggle with long-term dependencies. LSTMs fix this but remain computationally expensive. Attention mechanisms allow selective focus. Self-attention enables parallelization, paving the way for Transformers.
+For example:
+- **TF-IDF** works well for exact keyword matching but lacks semantic understanding
+- **Word Embeddings** capture meaning but don't capture context
+- **RNNs** model sequences but struggle with long-term dependencies
+- **LSTMs** fix vanishing gradients but remain computationally expensive
+- **Attention** allows selective focus on relevant information
+- **Self-Attention** enables parallelization, paving the way for Transformers
 
 The notebooks reflect this progression through incremental complexity, building intuition before diving into implementation.
 
@@ -184,19 +325,19 @@ The notebooks reflect this progression through incremental complexity, building 
 
 ## Next Steps
 
-The next section of this repository introduces **Transformer architectures** and **Large Language Models**, where Self-Attention becomes the core building block of modern NLP systems. Self-Attention scales from processing individual documents to understanding entire sequences in parallel, forming the foundation of BERT, GPT, and contemporary language models.
+The next section of this repository introduces **Transformer architectures** and **Large Language Models**, where Self-Attention becomes the core building block of modern NLP systems. Self-Attention scales from processing individual documents to understanding entire sequences in parallel, forming the foundation of BERT, GPT, T5, and contemporary language models.
 
 ---
 
 ## Getting Started
 
-1. Start with **01-tf-idf** to understand text as vectors
-2. Progress sequentially through each notebook
-3. Run cells interactively and experiment with modifications
-4. Pay attention to the visualizations—they encode key insights
-5. Review each notebook's limitations section to understand motivation for the next technique
+1. **Start with 01-tf-idf** — Understand text as vectors
+2. **Progress sequentially** — Each notebook builds on the previous one
+3. **Run interactively** — Modify cells and experiment
+4. **Study visualizations** — They encode key insights
+5. **Review limitations** — Understand why the next technique was needed
 
-Each notebook is self-contained and includes all necessary data and explanations to run independently, but the sequence maximizes learning retention.
+Each notebook is self-contained with all necessary data and explanations, but the sequence maximizes learning retention.
 
 ---
 
