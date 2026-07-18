@@ -41,7 +41,7 @@ nlp/
 │   └── notebook.ipynb
 ├── 04-rnn/
 │   ├── README.md
-│   └── notebook.ipynb
+│   └─��� notebook.ipynb
 ├── 05-lstm/
 │   ├── README.md
 │   └── notebook.ipynb
@@ -98,25 +98,57 @@ By working through these notebooks, you will understand:
 
 ## Visual Highlights
 
-The following visualizations are embedded in the notebooks to reinforce concepts:
+### TF-IDF Heatmap
+Shows the importance of terms across documents, highlighting how different keywords distinguish document topics.
 
-<!-- TF-IDF Heatmap -->
-**TF-IDF Heatmap**: Shows the importance of terms across documents, highlighting how different keywords distinguish document topics.
+![TF-IDF Heatmap Placeholder](https://via.placeholder.com/600x400?text=TF-IDF+Term+Importance+Heatmap)
 
-<!-- Word Embedding PCA Projection -->
-**Word Embedding PCA Projection**: Demonstrates how learned embeddings cluster semantically similar words in 2D space.
+*Visualization from `01-tf-idf/notebook.ipynb` — displays term frequency across documents*
 
-<!-- RNN Training Curves -->
-**RNN Training Curves**: Illustrates model convergence during training and validation on sentiment classification.
+---
 
-<!-- LSTM Cell Architecture -->
-**LSTM Cell Architecture**: Visualizes the flow of information through forget, input, and output gates.
+### Word Embedding PCA Projection
+Demonstrates how learned embeddings cluster semantically similar words in 2D space, revealing semantic structure.
 
-<!-- Attention Heatmap -->
-**Attention Heatmap**: Displays how attention weights distribute across input tokens, revealing which words the model focuses on.
+![Word Embedding PCA Placeholder](https://via.placeholder.com/600x400?text=Word+Embeddings+PCA+Projection)
 
-<!-- Self-Attention Matrix -->
-**Self-Attention Matrix**: Visualizes pairwise token interactions and learned relationships in the self-attention mechanism.
+*Visualization from `03-word-embeddings/notebook.ipynb` — semantic relationships in vector space*
+
+---
+
+### RNN Training Curves
+Illustrates model convergence during training and validation on sentiment classification tasks.
+
+![RNN Training Curves Placeholder](https://via.placeholder.com/600x400?text=RNN+Training+Convergence+Curves)
+
+*Visualization from `04-rnn/notebook.ipynb` — loss and accuracy over epochs*
+
+---
+
+### LSTM Cell Architecture
+Visualizes the flow of information through forget, input, and output gates, explaining memory dynamics.
+
+![LSTM Cell Architecture Placeholder](https://via.placeholder.com/600x400?text=LSTM+Cell+Gate+Architecture)
+
+*Diagram from `05-lstm/notebook.ipynb` — forget gate, input gate, output gate flow*
+
+---
+
+### Attention Heatmap
+Displays how attention weights distribute across input tokens, revealing which words the model focuses on during prediction.
+
+![Attention Heatmap Placeholder](https://via.placeholder.com/600x400?text=Attention+Weight+Distribution+Heatmap)
+
+*Visualization from `06-attention-mechanisms/notebook.ipynb` — interpretability of attention focus*
+
+---
+
+### Self-Attention Matrix
+Visualizes pairwise token interactions and learned relationships in the self-attention mechanism, showing token-to-token attention patterns.
+
+![Self-Attention Matrix Placeholder](https://via.placeholder.com/600x400?text=Self-Attention+Token+Interaction+Matrix)
+
+*Visualization from `07-self-attention/notebook.ipynb` — token relationships in sequence*
 
 ---
 
