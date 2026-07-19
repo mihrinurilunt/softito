@@ -1,4 +1,4 @@
-# 🚀 Softito — AI Engineering Bootcamp Portfolio
+# 🚀 Softito — AI Engineering
 Hands-on implementations, projects, and learning materials covering AI engineering from fundamentals to deployment.
 
 [![Status](https://img.shields.io/badge/status-active-brightgreen.svg)](https://github.com/mihrinurilunt/softito) [![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python&logoColor=white)]() [![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-orange?logo=jupyter&logoColor=white)]() [![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white)]() [![GitHub](https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=white)]()
