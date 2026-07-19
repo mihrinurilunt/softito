@@ -1,0 +1,13 @@
+data/
+output/
+assets/*.png
+assets/*.jpg
+assets/*.jpeg
+assets/*.svg
+models/
+checkpoints/
+metastore_db/
+spark-warehouse/
+derby.log
+*.crc
+_SUCCESS
