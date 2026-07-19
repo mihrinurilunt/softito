@@ -1,4 +1,4 @@
-# Big Data Portfolio
+# Big Data
 
 [![Status](https://img.shields.io/badge/status-active-brightgreen.svg)]() [![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python&logoColor=white)]() [![Apache Spark](https://img.shields.io/badge/Apache%20Spark-E25A1C?logo=apachespark&logoColor=white)]() [![Hadoop](https://img.shields.io/badge/Hadoop-66CCFF?logo=apachehadoop&logoColor=black)]()
 
