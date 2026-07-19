@@ -1,4 +1,4 @@
-# LLM Engineering
+# LLM 
 Learning Large Language Models from Fundamentals to Production
 
 [![Status](https://img.shields.io/badge/status-active-brightgreen.svg)]() [![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python&logoColor=white)]() [![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-orange?logo=jupyter&logoColor=white)]()
@@ -11,23 +11,6 @@ Learning Large Language Models from Fundamentals to Production
 - Notebook-first examples — follow the roadmap notebooks to reproduce experiments.
 - Visual explanations — diagrams and plots to explain model behavior.
 - Production notes — deployment, inference optimization, and security.
-
----
-
-## Learning Roadmap (Mermaid)
-```mermaid
-flowchart TD
-  A[Data Preprocessing] --> B[Transformer Architecture]
-  B --> C[Autoregressive Generation]
-  C --> D[Small Language Models]
-  D --> E[PEFT & LoRA]
-  E --> F[Quantization]
-  F --> G[Evaluation]
-  G --> H[Alignment (RLHF / DPO)]
-  H --> I[Serving & Inference]
-  I --> J[API Gateway]
-  J --> K[Security]
-```
 
 ---
 
